@@ -1,0 +1,16 @@
+[
+    {
+        "modid": "leapmodetracker",
+        "name": "LeapModeTracker",
+        "description": "Adds a small HUD displaying current leap mode while playing as spider in hypixel mw.\n\nTo edit some properties of the HUD, try /leapmodetracker then press tab to cycle sub-commands",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "",
+        "updateUrl": "",
+        "authorList": ["jonuuh"],
+        "credits": "@PointsStorage",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
+]

@@ -46,15 +46,22 @@ public class ModeHUDRenderer
 //        float scale = 1F;
 
         GL11.glPushMatrix();
+        // Center in screen space
         GL11.glTranslatef(sr.getScaledWidth() / 2F, sr.getScaledHeight() - (22 * 4), 0F);
-        GL11.glTranslatef(-texSize / 2F, -texSize / 2F, 0F);
+        // Center within x 'texture space'
+        GL11.glTranslatef(-texSize / 2F, -texSize, 0F);
+        // Add any offsets
+        GL11.glTranslatef(settingsInstance.getHudXPosOffset(), settingsInstance.getHudYPosOffset(), 0F);
 
 //        // Scale in place
 //        GL11.glTranslatef(texSize * scale, texSize * scale, 0);
 //        GL11.glScalef(scale, scale, 0);
 //        GL11.glTranslatef(-texSize * scale, -texSize * scale, 0);
 
-        if (LeapModeTracker.getCurrentMode().equals(LeapMode.ARROW))
+        /** Leap mode that accounts for sneaking */
+        LeapMode trueLeapMode = mc.thePlayer.isSneaking() ? LeapMode.ARCED : LeapModeTracker.getCurrentMode();
+
+        if (trueLeapMode.equals(LeapMode.ARROW))
         {
             GL11.glTranslatef(0, texSize / 4F, 0F);
 
@@ -66,10 +73,10 @@ public class ModeHUDRenderer
 
         GL11.glColor4ub(color.r, color.g, color.b, color.a);
 
-        mc.getTextureManager().bindTexture(modeTextures.get(LeapModeTracker.getCurrentMode()));
+        ResourceLocation tex = modeTextures.get(trueLeapMode);
+        mc.getTextureManager().bindTexture(tex);
 
-        Gui.drawModalRectWithCustomSizedTexture(settingsInstance.getHudXPosOffset(), settingsInstance.getHudYPosOffset(),
-                0,0, 20, 20, 20, 20);
+        Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 20, 20, 20, 20);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glPopMatrix();
@@ -80,6 +87,5 @@ public class ModeHUDRenderer
         // TODO: doesn't work in mw duels?
         String cleanName = EnumChatFormatting.getTextWithoutFormattingCodes(player.getDisplayName().getUnformattedText());
         return cleanName.contains("[SPI]");
-//        return true;
     }
 }

@@ -4,7 +4,6 @@ import io.jonuuh.leapmodetracker.config.CommandConfig;
 import io.jonuuh.leapmodetracker.config.Settings;
 import io.jonuuh.leapmodetracker.event.GameStartListener;
 import io.jonuuh.leapmodetracker.event.ModeChangeListener;
-import io.jonuuh.leapmodetracker.event.SneakListener;
 import io.jonuuh.leapmodetracker.event.render.ModeHUDRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -15,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(
         modid = "leapmodetracker",
-        version = "1.0.0",
+        version = "1.0.1",
         acceptedMinecraftVersions = "[1.8.9]"
 )
 public class LeapModeTracker
@@ -39,8 +38,6 @@ public class LeapModeTracker
 
         MinecraftForge.EVENT_BUS.register(new GameStartListener());
         MinecraftForge.EVENT_BUS.register(new ModeChangeListener());
-        MinecraftForge.EVENT_BUS.register(new SneakListener());
-
         MinecraftForge.EVENT_BUS.register(new ModeHUDRenderer());
     }
 
@@ -52,7 +49,6 @@ public class LeapModeTracker
     public static void setCurrentMode(LeapMode currentMode)
     {
         LeapModeTracker.currentMode = currentMode;
-
 //        if (mc.thePlayer != null)
 //        {
 //            mc.thePlayer.addChatMessage(new ChatComponentText("DEBUG: Leap Mode now tracked as: " + currentMode.toString()));
